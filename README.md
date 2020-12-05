@@ -3,10 +3,13 @@
 
 # Part 0: Introduction and System Setup
 
+![DT](https://github.com/YFChiu/Study-Notes--Learning-Hadoop-and-Spark-using-Docker-compose-environment/blob/main/DT.png)
+
 When it comes to learning distributed file systems such as Hadoop and Spark, the biggest challenge for beginner is to find a proper production environment with cluster settings. Nowadays, though cloud computing become more and more popular, it is hard to imagine the structure of storing, managing, and computing data over the cluster of servers as a whole picture in the virtual settings. Besides, learners need to wisely select enormous information on the web and put together piece by piece due to the nature of open-source projects and communities.
 
 Thus, the aim of this article is to use a docker-compose environment to simulate the production environment on a local machine and go through fundamental concepts of Hadoop ecosystem and Spark with graphs using consistent naming system and basic coding examples in the lab environment. However, the details about setting up the Docker containers infrastructure are out of the scope of this article. All the references will be listed in the end of each section. 
 
+![CVN68qaszc](https://github.com/YFChiu/Study-Notes--Learning-Hadoop-and-Spark-using-Docker-compose-environment/blob/main/CVN68.png)
 
 # Part 1: Hadoop, HDFS
 ## Hadoop Architecture
@@ -29,6 +32,9 @@ By defining replication factor, each block is replicated, and replicas are store
 - Load balancing
 - Fault tolerance
 
+![structure](https://github.com/YFChiu/Study-Notes--Learning-Hadoop-and-Spark-using-Docker-compose-environment/blob/main/HDFS1.png)
+![structure](https://github.com/YFChiu/Study-Notes--Learning-Hadoop-and-Spark-using-Docker-compose-environment/blob/main/HDFS2.png)
+
 # Part 2: MapReduce, YARN
 
 ## MapReduce
@@ -41,6 +47,8 @@ By defining replication factor, each block is replicated, and replicas are store
 1. MapReduce is ‘disk killer’, while Spark is ‘memory killer’
 2. Complex SQL commands (join, groupBy, sortBy…) require multiple runs of MapReduce. If something wrong happens, it will restart from the beginning. Spark, on the other hand, will restart from where it gets lost.
 
+![structure](https://github.com/YFChiu/Study-Notes--Learning-Hadoop-and-Spark-using-Docker-compose-environment/blob/main/MapReduce.png)
+
 ## YARN
 
 YARN is for the management of resources on the Hadoop cluster. In other words, YARN coordinates all the different MapReduce tasks running on the cluster; and monitors for failures and reassign new nodes when others fail.
@@ -49,14 +57,16 @@ YARN runs programs for data processing engines, such as MapReduce, Spark. There 
 
 When a job is submitted, client (e.g. **[ds101]**) talks to RM (e.g. **[rma]**) and RM creates Application Master in one of the Data Node (e.g. **[wka01]**). Once AM is created, it will talk to Name Node (e.g. **[nna]**) for block locations and to NM for usage of the cluster.
 
+![structure](https://github.com/YFChiu/Study-Notes--Learning-Hadoop-and-Spark-using-Docker-compose-environment/blob/main/YARN.png)
+
 #### How YARN works
-1. [ds101] submits an application
-2. [rma] allocates a container to start Application Manager in [wka01]
-3. Application Manager gets block locations from [nna]
-4. Application Manager registers with [rma] and asks containers from [rma
-5. [rma] allocates containers in [wka02],[wka03]
-6. Application Manager in [wka01] notifies Node Manager in [wka02], [wka03] to launch containers and communicates with Node Managers while running the tasks
-7. Application code is executed in the container (i.e. YARNChild in [wka02], [wka03])
+1. **[ds101]** submits an application
+2. **[rma]** allocates a container to start Application Manager in **[wka01]**
+3. Application Manager gets block locations from **[nna]**
+4. Application Manager registers with **[rma]** and asks containers from **[rma]**
+5. **[rma]** allocates containers in **[wka02], [wka03]**
+6. Application Manager in **[wka01]** notifies Node Manager in **[wka02], [wka03]** to launch containers and communicates with Node Managers while running the tasks
+7. Application code is executed in the container (i.e. YARNChild in **[wka02], [wka03]**)
 
 # Part 3: Hive, Parquet, Compression
 # Part 4: Pig
